@@ -12,6 +12,7 @@ run_length_encoding.py
 
 dictionary_encoding.py  
     To be implemented
+
 frame_of_reference_encoding.py  
     To be implemented
 
