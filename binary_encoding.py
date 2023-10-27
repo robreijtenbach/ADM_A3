@@ -1,7 +1,8 @@
 class BinaryEncoder():
     def encode(self, data, dtype):
         '''Receives data as list of input items, returns encoded data string'''
-        if dtype[:3] != "int":
+        # Check if dtype is integer as only these are needed for this encoding
+        if dtype[:3] != "int": 
             raise TypeError
         size = int(dtype[3:])
         encodedData = ""
@@ -12,6 +13,7 @@ class BinaryEncoder():
     def decode(self, data, dtype):
         '''Receives data as encoded string as created by encode function. 
         Returns list of items that are the same as input of encode function.'''
+        # Check if dtype is integer as only these are needed for this encoding
         if dtype[:3] != "int":
             raise TypeError
         size = int(dtype[3:])
