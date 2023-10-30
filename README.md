@@ -19,7 +19,11 @@ dictionary_encoding.py
     l_shipinstruct-string.csv). 
 
 frame_of_reference_encoding.py  
-    To be implemented
+    Working version of frame of reference encoder.
+    Works well on files with values that are not too different close together.
+    (e.g. l_orderkey-int32.scv). Does not use binary encoder as it is hard to 
+    differentiate between reference values and difference values that way.
+    Prefixes new reference values with 'N' character.
 
 differential_encoding.py
     Working version of differential encoder.
