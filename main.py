@@ -21,12 +21,21 @@ def readInput(filename):
         for row in csv.reader(f, delimiter = '\n'):
             if len(row) == 1:
                 data.append(row[0])
-            else: # Not certain if this ever happend if not: remove these lines (should test with string input files)
+            else:
                 data.append(row) 
     return data
 
+def readBytes(filename):
+    '''Function to read encoded binary files'''
+    with open(filename, 'rb') as f:
+        data = bytearray()
+        while (byte := f.read(1)):
+            data += byte
+    return data
+
+
 def readRaw(filename):
-    '''Used for reading encoded files.'''
+    '''Used for reading encoded text files.'''
     with open(filename, 'r') as f:
         data = f.read()
     return data
@@ -37,8 +46,13 @@ def printLikeInput(data):
     for item in data:
         print(item)
 
+def writeBytes(filename, data):
+    '''Function to write encoded binary files. Needs byte-like object data.'''
+    with open(filename, 'wb') as f:
+        f.write(data)
+
 def writeData(filename, data):
-    '''Function to write encoded file.'''
+    '''Function to write encoded text file.'''
     with open(filename, 'w') as f:
         f.write(data)
 
@@ -84,10 +98,11 @@ def main():
     if config['direction'] == 'en':
         data = readInput(config['path'])
         data = encoder.encode(data, config['datatype'])
-        writeData("{}.{}".format(config['path'],config['method']), data)
+        print(data[0:4])
+        writeBytes("{}.{}".format(config['path'],config['method']), data)
         #printRaw(data) # Just for debugging
     elif config['direction'] == 'de':
-        data = readRaw(config['path'])
+        data = readBytes(config['path'])
         data = encoder.decode(data, config['datatype'])
         printLikeInput(data)
     else:
