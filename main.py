@@ -66,14 +66,19 @@ def printRaw(data):
 def main():
     # Check if program is called correctly
     if len(sys.argv) != 5:
+        print("len(argv) not correct.", file=sys.stderr)
         invalidInput()
     if not (sys.argv[1] == "en" or sys.argv[1] == "de"):
+        print("Not encode or decode.", file=sys.stderr)
         invalidInput()
     if not (sys.argv[2] == "bin" or sys.argv[2] == "rle" or sys.argv[2] == "dic" or sys.argv[2] == "for" or sys.argv[2] == "dif"):
+        print("No correct algorithm", file=sys.stderr)
         invalidInput()
     if not (sys.argv[3] == "int8" or sys.argv[3] == "int16" or sys.argv[3] == "int32" or sys.argv[3] == "int64" or sys.argv[3] == "string"):
+        print("No correct datatype.", file=sys.stderr)
         invalidInput()
     if not sys.argv[4][-4:] == ".csv" and sys.argv[1] == "en":
+        print("No .csv for file to be encoded.", file=sys.stderr)
         invalidInput()
     if not sys.argv[4][-3:] == sys.argv[2] and sys.argv[1] == "de":
         print('''Encoded file supplied does not have the file extension of the decoder argument passed.''', file=sys.stderr)

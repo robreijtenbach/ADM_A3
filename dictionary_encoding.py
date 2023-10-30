@@ -2,7 +2,8 @@ import ast
 
 class DictionaryEncoder():
     def encode(self, data, dtype):
-        '''Receives data as list of input items, returns encoded data string'''
+        '''Receives data as list of input items, returns encoded data string
+        as byte-like object.'''
         # Initialization
         i = 0
         dictionary = {}
@@ -17,12 +18,13 @@ class DictionaryEncoder():
         
         # Adds the dictionary to the encoded data.
         encodedData = "{}\n{}".format(str(dictionary), encodedData)
-        return encodedData
+        return encodedData.encode("utf-8")
 
     def decode(self, data, dtype):
-        '''Receives data as encoded string as created by encode function. 
-        Returns list of items that are the same as input of encode function.'''
-        data = data.split("\n")
+        '''Receives data as encoded string as byte-like object as created by 
+        encode function. Returns list of items that are the same as input of 
+        encode function.'''
+        data = data.decode("utf-8").split("\n")
         # Get dictionary from encoded file.
         dictionary = ast.literal_eval(data[0])
         
