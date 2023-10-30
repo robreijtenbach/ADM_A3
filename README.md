@@ -10,7 +10,9 @@ binary_encoding.py
     formats are actually needed. If not uses less bits.
 
 run_length_encoding.py
-    To be implemented
+    Working version of run length encoder.
+    Reduces size of files with many the same values. Very slow on large string
+    files. l_comment-strings.csv takes more than a minute to encode or decode.
 
 dictionary_encoding.py
     Working version of dictionary encoder.
