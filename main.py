@@ -11,7 +11,9 @@ from differential_encoding import DifferentialEncoder
 
 def invalidInput():
     '''Prints usage if program is called incorrectly and exits.'''
-    print("Usage: {sys.argv[0]} \{en|de\} \{bin|rle|dic|for|dif\} \{int8|int16|int32|int64|string\} \{path\}")
+    print(f"Usage: {sys.argv[0]} " + '''{en|de} {bin|rle|dic|for|dif} 
+    {int8|int16|int32|int64|string} {path}.csv (for decoding filename can not 
+    end in .csv to avoid confusion during testing).''', file=sys.stderr)
     exit(-1)
 
 def readInput(filename):
@@ -71,6 +73,11 @@ def main():
         invalidInput()
     if not (sys.argv[3] == "int8" or sys.argv[3] == "int16" or sys.argv[3] == "int32" or sys.argv[3] == "int64" or sys.argv[3] == "string"):
         invalidInput()
+    if not sys.argv[4][-4:] == ".csv" and sys.argv[1] == "en":
+        invalidInput()
+    if not sys.argv[4][-3:] == sys.argv[2] and sys.argv[1] == "de":
+        print('''Encoded file supplied does not have the file extension of the decoder argument passed.''', file=sys.stderr)
+        invalidInput()
 
     # Generate config dictionary from command line arguments
     config = {
@@ -98,7 +105,6 @@ def main():
     if config['direction'] == 'en':
         data = readInput(config['path'])
         data = encoder.encode(data, config['datatype'])
-        print(data[0:4])
         writeBytes("{}.{}".format(config['path'],config['method']), data)
         #printRaw(data) # Just for debugging
     elif config['direction'] == 'de':

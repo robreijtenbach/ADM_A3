@@ -6,8 +6,8 @@ main.py
 
 binary_encoding.py
     Working version of binary encoder.
-    Makes all files bigger which is expected behavior as printing the bytes as
-    strings takes more storage.
+    Should not make files bigger anymore as it first checks if larger bit 
+    formats are actually needed. If not uses less bits.
 
 run_length_encoding.py
     To be implemented
@@ -16,13 +16,13 @@ dictionary_encoding.py
     Working version of dictionary encoder.
     Works well on files with few unique values which are long as these get much 
     smaller by using a dictionary (e.g. l_shipdate-string.csv and 
-    l_shipinstruct-string.csv). Files with many unique values get bigger after 
-    encoding this way.
+    l_shipinstruct-string.csv). Uses binary encoding aswell now.
 
 frame_of_reference_encoding.py  
     To be implemented
 
-differential_encoding.py        
+differential_encoding.py
+    TODO I'm going to add binary encoding to this file as well.
     Working version of differential encoder.
     Works well on files with ascending values (e.g. l_orderkey-int32.csv). This
     is expected and was covered in the lecture. Files where values are randomly
