@@ -16,17 +16,16 @@ dictionary_encoding.py
     Working version of dictionary encoder.
     Works well on files with few unique values which are long as these get much 
     smaller by using a dictionary (e.g. l_shipdate-string.csv and 
-    l_shipinstruct-string.csv). Uses binary encoding aswell now.
+    l_shipinstruct-string.csv). 
 
 frame_of_reference_encoding.py  
     To be implemented
 
 differential_encoding.py
-    TODO I'm going to add binary encoding to this file as well.
     Working version of differential encoder.
     Works well on files with ascending values (e.g. l_orderkey-int32.csv). This
     is expected and was covered in the lecture. Files where values are randomly
     distributed will benefit less from this encoding, especially when the 
     individual values are small as the negative sign also takes one character 
-    (e.g. l_discount-int16.csv).
+    (e.g. l_discount-int16.csv). Uses binary encoding aswell now.
 
