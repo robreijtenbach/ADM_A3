@@ -1,3 +1,5 @@
+import sys
+
 class RunLengthEncoder():
     def encode(self, data, dtype):
         '''Receives data as list of input items, returns encoded data string
@@ -44,7 +46,7 @@ class RunLengthEncoder():
                     if i+1 < len(data) and data[i+1].isdigit():
                         j = 1
                         occurances = ""
-                        while data[i+j].isdigit():
+                        while i+j < len(data) and data[i+j].isdigit():
                             occurances += data[i+j]
                             j += 1
                         occurances = int(occurances)
@@ -60,7 +62,7 @@ class RunLengthEncoder():
                     if i+j < len(data) and data[i+1].isdigit():
                         j = 1
                         occurances = ""
-                        while data[i+j].isdigit():
+                        while i+j < len(data) and data[i+j].isdigit():
                             occurances += data[i+j]
                             j += 1
                         occurances = int(occurances)
@@ -72,6 +74,7 @@ class RunLengthEncoder():
                 i += 1
             return decodedData.split("\n")
         else:
+            data = data.split("\n")
             decodedData = []
             for d in data:
                 line = d.split(" ")
