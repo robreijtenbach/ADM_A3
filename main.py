@@ -2,6 +2,7 @@
 
 import csv
 import sys
+import time
 
 from binary_encoding import BinaryEncoder
 from run_length_encoding import RunLengthEncoder
@@ -35,16 +36,9 @@ def readBytes(filename):
             data += byte
     return data
 
-
-def readRaw(filename):
-    '''Used for reading encoded text files.'''
-    with open(filename, 'r') as f:
-        data = f.read()
-    return data
-
 def printLikeInput(data):
-    '''Prints data like input file line by line. Used to compare to original 
-    after decoding.'''
+    '''Prints data like input file line by line to stdout. Used to compare to 
+    original after decoding.'''
     for item in data:
         print(item)
 
@@ -52,16 +46,6 @@ def writeBytes(filename, data):
     '''Function to write encoded binary files. Needs byte-like object data.'''
     with open(filename, 'wb') as f:
         f.write(data)
-
-def writeData(filename, data):
-    '''Function to write encoded text file.'''
-    with open(filename, 'w') as f:
-        f.write(data)
-
-def printRaw(data):
-    '''Simple print function to print encoded data to stdout. Used for 
-    debugging'''
-    print(data, end="")
 
 def main():
     # Check if program is called correctly
@@ -109,12 +93,15 @@ def main():
     # Read data, encode or decode and print accordingly
     if config['direction'] == 'en':
         data = readInput(config['path'])
+        start_time = time.time()
         data = encoder.encode(data, config['datatype'])
+        print("Encoding {} took {:.3f} seconds using the {} algorithm".format(config['path'], time.time()-start_time, config['method']), file=sys.stderr)
         writeBytes("{}.{}".format(config['path'],config['method']), data)
-        #printRaw(data) # Just for debugging
     elif config['direction'] == 'de':
         data = readBytes(config['path'])
+        start_time = time.time()
         data = encoder.decode(data, config['datatype'])
+        print("Decoding {} took {:.3f} seconds using the {} algorithm".format(config['path'], time.time()-start_time, config['method']), file=sys.stderr)
         printLikeInput(data)
     else:
         raise Exception("Error selecting encode or decode.")
