@@ -1,5 +1,3 @@
-import sys
-
 class RunLengthEncoder():
     def encode(self, data, dtype):
         '''Receives data as list of input items, returns encoded data string
@@ -22,15 +20,17 @@ class RunLengthEncoder():
                     i+=1
         else:
             i = 0
-            while i < len(data):
-                j = 1
-                while i+j < len(data) and data[i] == data[i+j]:
+            len_data = len(data)
+            while i < len_data:
+                data_i = data[i]
+                j = i
+                while j < len_data and data_i == data[j]:
                     j += 1
-                if j > 1:
-                    encodedData += "{} {}\n".format(data[i], j)
-                    i += j
+                if j-i > 1:
+                    encodedData += "{} {}\n".format(data_i, j-i)
+                    i = j
                 else:
-                    encodedData += "{}\n".format(data[i])
+                    encodedData += "{}\n".format(data_i)
                     i += 1
         return encodedData.encode("utf-8")
 
